@@ -1,0 +1,28 @@
+.list {
+  list-style: none;
+}
+.item {
+  display: flex;
+  justify-content: space-around;
+  line-height: 40px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.button {
+  padding: 15px 30px;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 700;
+
+  border: solid #afb1b8;
+  border-radius: 4px;
+  color: #000;
+  background: #afb1b8;
+  &:hover {
+    border: solid #2196f3;
+    background: #2196f3;
+    color: #fff;
+  }
+}
+
+// #2196f3
