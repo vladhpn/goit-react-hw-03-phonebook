@@ -1,46 +1,37 @@
-import { Component } from "react";
-import shortid from 'shortid';
+import { useState } from "react";
 import styles from '../Form/styles.module.scss';
 
+const Form = ({onSubmit}) => {
 
-class Form extends Component{
+const [name, setName] = useState('')
+const [number, setNumber] = useState('')
 
-   nameInputId = shortid.generate();
+  const updateName = (event) => {
+    setName(event.target.value)
+  }
 
-    state ={
-        name: '',
-        number: '',
-    }
-    handleInputChange = (event) => {
-        const { name, value } = event.currentTarget;
-        this.setState({
-          [name]: value,
-        });
-      };
+  const updateNumber = (event) => {
+    setNumber(event.target.value)
+  }
 
-      handleSubmit = (event) => {
+     const handleSubmit = (event) => {
         event.preventDefault();
-
-        this.props.onSubmit(this.state );
-        this.reset();
+        onSubmit(name, number)
+        setName('')
+        setNumber('')
       };
-
-      reset = () => {
-          this.setState({'name' : '', 'number' : ''})
-      }
-
-    render(){
+      
         return(<>
         
             <h1 className={styles.title}>Phone book</h1>
-            <form onSubmit={this.handleSubmit} className={styles.form}>
+            <form onSubmit={handleSubmit} className={styles.form}>
               <label className={styles.label}>
                 <span className={styles.text}>Name</span>
                 <input className={styles.input}
                   type='text'
                   name='name'
-                  value={this.state.name}
-                  onChange={this.handleInputChange}
+                  value={name}
+                  onChange={updateName}
                   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                   title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
                   required
@@ -51,8 +42,8 @@ class Form extends Component{
                 <input className={styles.input}
                   type='tel'
                   name='number'
-                  value={this.state.number}
-                  onChange={this.handleInputChange}
+                  value={number}
+                  onChange={updateNumber}
                   pattern='(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})'
                   title='Номер телефона должен состоять из 11-12 цифр и может содержать цифры, пробелы, тире, пузатые скобки и может начинаться с +'
                   required
@@ -63,7 +54,5 @@ class Form extends Component{
             
           </>)
     }
-}
-
 
 export default Form;
