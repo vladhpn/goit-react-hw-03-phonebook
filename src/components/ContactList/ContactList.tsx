@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types';
 import styles from './styles.module.scss'
+import { IContacts } from '../../interfaces';
 
-const ContactList = ({contacts, onDeleteContact }) =>{return (<>
+type ContactsListType = {
+    contacts: IContacts[]
+    onDeleteContact(id:string): void
+}
+
+const ContactList = ({contacts, onDeleteContact }:ContactsListType) =>{return (<>
     <ul className={styles.list} >{contacts.map(({id, name, number}) => <li key={id} className={styles.item}>
         <p>{name}:</p>
         <p>{number}</p>
@@ -10,7 +15,4 @@ const ContactList = ({contacts, onDeleteContact }) =>{return (<>
         </ul> </>);
     } 
 
-    ContactList.propTypes = {
-     onDeleteContact: PropTypes.func.isRequired
-    }
 export default ContactList;

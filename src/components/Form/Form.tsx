@@ -1,20 +1,24 @@
 import { useState } from "react";
 import styles from '../Form/styles.module.scss';
 
-const Form = ({onSubmit}) => {
+type FormType = {
+  onSubmit( name:string, number:string): void
+}
+
+const Form = ({onSubmit}:FormType) => {
 
 const [name, setName] = useState('')
 const [number, setNumber] = useState('')
 
-  const updateName = (event) => {
+  const updateName = (event:React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
   }
 
-  const updateNumber = (event) => {
+  const updateNumber = (event:React.ChangeEvent<HTMLInputElement>) => {
     setNumber(event.target.value)
   }
 
-     const handleSubmit = (event) => {
+     const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         onSubmit(name, number)
         setName('')

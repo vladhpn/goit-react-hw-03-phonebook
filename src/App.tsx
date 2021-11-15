@@ -3,13 +3,14 @@ import Form from './components/Form';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
 import shortid from 'shortid';
+import { IContacts } from './interfaces';
 
 const App = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
+  const [contacts, setContacts] = useState<IContacts[]>([]);
+  const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
-    const savedContacts = JSON.parse(localStorage.getItem('contacts'));
+    const savedContacts = JSON.parse(localStorage.getItem('contacts')  || '[]') as IContacts[];
 
     setContacts(savedContacts);
   }, []);
@@ -18,8 +19,8 @@ const App = () => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-  const addContact = (name, number) => {
-    const contact = {
+  const addContact = (name:string, number:string) => {
+    const contact: IContacts = {
       id: shortid.generate(),
       name: name,
       number: number,
@@ -32,11 +33,11 @@ const App = () => {
       : setContacts(prev => [contact, ...contacts]);
   };
 
-  const deleteContact = id => {
+  const deleteContact = (id:string) => {
     setContacts(prev => prev.filter(contact => contact.id !== id));
   };
 
-  const changeFilter = event => {
+  const changeFilter = (event:React.ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value);
   };
 
